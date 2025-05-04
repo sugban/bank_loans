@@ -1,0 +1,17 @@
+[project]
+name = "bank-loans"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.38.8",
+    "pandas>=2.2.3",
+    "python-decouple>=3.8",
+    "sqlalchemy>=2.0.40",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
