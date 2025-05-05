@@ -1,0 +1,45 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      user: admin
+      password: password
+      port: 5432
+      dbname: bankloan
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+      # Add connect_timeout to allow more time for initial connection
+      connect_timeout: 30
+
+bankloan_dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      user: admin
+      password: password
+      port: 5432
+      dbname: bankloan
+      schema: public
+      threads: 4
+      keepalives_idle: 0
+# Add connect_timeout to allow more time for initial connection
+      connect_timeout: 30
+
+bankloan:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      user: admin
+      password: password
+      port: 5432
+      dbname: bankloan
+      schema: public
+      threads: 4
+      keepalives_idle: 0

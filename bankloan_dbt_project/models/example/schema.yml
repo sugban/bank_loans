@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: client_loan
+    description: "Table containing client loan details"
+    columns:
+      - name: account_id
+        description: "Unique identifier for the account"
+        tests:
+          - unique
+          - not_null
+      - name: district_id
+        description: "Identifier for the district"
+      - name: statement_freq
+        description: "Frequency of account statements (e.g., Monthly)"
+      - name: client_id
+        description: "Unique identifier for the client"
+        tests:
+          - not_null
+      - name: gender
+        description: "Gender of the client (Male/Female)"
+      - name: DateOfBirth
+        description: "Date of birth of the client"
+      - name: loan_id
+        description: "Unique identifier for the loan"
+        tests:
+          - unique
+          - not_null
+      - name: loan_date
+        description: "Date when the loan was issued"
+      - name: amount
+        description: "Loan amount"
+      - name: duration
+        description: "Duration of the loan in months"
+      - name: payments
+        description: "Monthly payment amount"
+      - name: contract_status
+        description: "Status of the loan contract (e.g., Contract Closed)"
+      - name: isdebt
+        description: "Indicates if the loan is in debt (Yes/No)"
+      - name: dis_name
+        description: "Name of the district"
+      - name: Region
+        description: "Region where the district is located"
+      - name: Avg_Salary
+        description: "Average salary in the district"
+      - name: UnempRate95
+        description: "Unemployment rate in 1995"
+      - name: UnempRate96
+        description: "Unemployment rate in 1996"
+
+  - name: client_loan_analytics
+    description: "Aggregated analytics table for client loans by region"
+    columns:
+      - name: Region
+        description: "Region where the district is located"
+      - name: total_loans
+        description: "Total number of loans in the region"
+        tests:
+          - not_null
+      - name: total_loan_amount
+        description: "Total loan amount in the region"
+      - name: avg_loan_amount
+        description: "Average loan amount in the region"
+      - name: avg_loan_duration
+        description: "Average loan duration in months"
+      - name: avg_monthly_payment
+        description: "Average monthly payment for loans in the region"
+      - name: total_loans_in_debt
+        description: "Total number of loans in debt in the region"
+      - name: debt_ratio_percentage
+        description: "Percentage of loans in debt in the region"

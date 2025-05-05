@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: dbt_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bankloan
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "dbt_user", "-d", "dbt_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.5.0
+    container_name: dbt_core
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./:/usr/app
+    environment:
+      DBT_PROFILES_DIR: /usr/app/profiles
+    working_dir: /usr/app
+    # Use interactive mode so container doesn't exit immediately
+    stdin_open: true
+    tty: true
+    entrypoint: bash
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  pgadmin_data:
